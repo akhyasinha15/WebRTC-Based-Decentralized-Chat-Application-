@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebRTC Video Call</title>
+
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>WebRTC Video Call</h1>
+      <p>Simple peer-to-peer video calling</p>
+    </header>
+
+    <div class="video-grid">
+      <div class="video-container">
+        <h3>Your Video</h3>
+        <video id="localVideo" autoplay muted class="local-video"></video>
+        <div id="localStatus" class="status disconnected">Camera Off</div>
+        <div id="localOverlay" class="video-overlay" style="display:none;">No Video</div>
+      </div>
+
+      <div class="video-container">
+        <h3>Remote Video</h3>
+        <video id="remoteVideo" autoplay></video>
+        <div id="remoteStatus" class="status disconnected">Waiting for connection...</div>
+        <div id="remoteOverlay" class="video-overlay">Waiting for remote video...</div>
+      </div>
+    </div>
+
+    <div class="connection-panel">
+      <div id="connectionStatus" class="status disconnected">Camera to begin</div>
+      <div class="controls">
+        <button id="startBtn" class="btn-primary" onclick="startCamera()">Start Camera</button>
+        <button id="offerBtn" class="btn-success" onclick="createOffer()" disabled>Create Offer</button>
+        <button id="answerBtn" class="btn-warning" onclick="createAnswer()" disabled>Create Answer</button>
+        <button id="setAnswerBtn" class="btn-success" onclick="setRemoteAnswer()" disabled>✅ Set Answer</button>
+        <button id="hangupBtn" class="btn-danger" onclick="hangUp()" disabled>Hang Up</button>
+        <button class="btn-secondary" onclick="forceVideoRefresh()">Force Video Refresh</button>
+      </div>
+
+      <div class="sdp-box">
+        <h4>Your SDP (Copy and send this)</h4>
+        <textarea id="localSdp" readonly></textarea>
+        <button class="btn-secondary" onclick="copyToClipboard('localSdp')">Copy SDP</button>
+      </div>
+
+      <div class="sdp-box">
+        <h4>Remote SDP (Paste received SDP here)</h4>
+        <textarea id="remoteSdp"></textarea>
+        <button class="btn-secondary" onclick="pasteFromClipboard('remoteSdp')">Paste SDP</button>
+      </div>
+
+      <div class="debug" id="debugLog">Debug information will appear here...</div>
+    </div>
+  </div>
+
+  <!-- Link external JS -->
+  <script src="script.js"></script>
+</body>
+</html>
